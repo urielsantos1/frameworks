@@ -9,7 +9,7 @@ export class FindById {
 
     async execute(id: string){
         return this.prisma.todo.findUnique({
-            where: { id }
+            id
         });
     }
 }
