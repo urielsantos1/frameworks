@@ -1,0 +1,32 @@
+import { Injectable, Logger } from "@nestjs/common";
+import { CreateTodoRepository } from "../repository";
+import { CreateTodoDto } from "../dto/create-todo.dto";
+
+@Injectable()
+export class createTodoRepository {
+    delete(id: string) {
+        throw new Error("Method not implemented.");
+    }
+    constructor(
+        private readonly createTodoRepository: CreateTodoRepository,
+        private readonly logger: Logger,
+    
+    ){}
+
+
+async testeerro(data: CreateTodoDto){
+    try {
+        this.logger.log('Creating todo...');
+        const todo = await this.createTodoRepository.create(data)
+        this.logger.log('Todo created sucessfully');
+        return todo;
+
+        
+    } catch (error) {
+    this.logger.error(error);
+    throw new Error('Failed to create todo')
+    
+        
+    }
+}
+}
