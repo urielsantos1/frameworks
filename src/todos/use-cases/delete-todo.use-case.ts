@@ -1,31 +1,32 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { createTodoRepository } from "./create-todo.use-case";
-
- 
+import { DeleteTodo as DeleteTodoRepository } from "../repository";
+import { FindById } from "../repository";
 
 @Injectable()
-export class DeleteTodo {
+export class DeleteTodoUseCase {
     constructor(
-        
-        private readonly deletetodo: DeleteTodo, 
+        private readonly deleteTodoRepository: DeleteTodoRepository,
+        private readonly findByIdRepository: FindById,
         private readonly logger: Logger,
     ) {}
 
-    async deletetodoteste(id: string) { 
+    async delete(id: string) {
         try {
             this.logger.log(`Iniciando exclusão do todo: ${id}`);
-            
 
-            const result = await this.deletetodo.delete(id);
             
-            this.logger.log('Todo deleted successfully');
+            const todo = await this.findByIdRepository.execute(id);
+            if (!todo) {
+                throw new Error(`Todo with id ${id} not found`);
+            }
+
+            const result = await this.deleteTodoRepository.delete(id);
+
+            this.logger.log(`Todo ${id} deletado com sucesso`);
             return result;
         } catch (error) {
             this.logger.error(`Erro ao deletar: ${error.message}`);
-            throw new Error('Failed to delete todo');
+            throw error;
         }
-    } 
-    delete(id: string) {
-        throw new Error("Method not implemented.");
     }
 }

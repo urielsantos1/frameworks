@@ -5,9 +5,10 @@ import { PrismaService } from "src/shared/databases/prisma.database";
 
 @Injectable()
 export class FindAllTodosRepository {
+    findMany: any;
     constructor(private readonly prisma: PrismaService) {}
 
-    async execute(){
-        return this.prisma.todo.FindMany();
+    async FindMany(){
+        return this.prisma.Todo.findMany();
     }
 }

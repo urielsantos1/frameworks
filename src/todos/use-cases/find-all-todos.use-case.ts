@@ -4,16 +4,17 @@ import { FindAllTodosRepository } from "../repository";
 
 @Injectable()
 export class FindAll {
+
   constructor(
-    private readonly findall: FindAllTodosRepository,
+     private readonly findAllTodosRepository: FindAllTodosRepository,
     private readonly logger: Logger,
   ) {}
 
-  async achartodo() {
+  async execute() {
     try {
       this.logger.log(`Puxando todos`);
 
-      const result = await this.findall.execute();
+         const result = await this.findAllTodosRepository.findMany();
 
       this.logger.log(`Itens encontrados com sucesso`);
       return result;
