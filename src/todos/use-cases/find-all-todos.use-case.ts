@@ -17,6 +17,7 @@ export class FindAll {
          const result = await this.findAllTodosRepository.findMany();
 
       this.logger.log(`Itens encontrados com sucesso`);
+      if (!result) {this.logger.error(`nenhum item encontrado`)}
       return result;
     } catch (error) {
       this.logger.error(`Erro ao encontrar itens: ${error.message}`);
