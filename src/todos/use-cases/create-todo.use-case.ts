@@ -3,7 +3,7 @@ import { CreateTodoRepository } from "../repository";
 import { CreateTodoDto } from "../dto/create-todo.dto";
 
 @Injectable()
-export class createTodoRepository {
+export class createTodoUsecase {
     delete(id: string) {
         throw new Error("Method not implemented.");
     }
@@ -14,7 +14,7 @@ export class createTodoRepository {
     ){}
 
 
-async testeerro(data: CreateTodoDto){
+async execute(data: CreateTodoDto){
     try {
         this.logger.log('Creating todo...');
         const todo = await this.createTodoRepository.create(data)

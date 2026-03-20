@@ -3,7 +3,7 @@ import { FindAllTodosRepository } from "../repository";
 
 
 @Injectable()
-export class FindAll {
+export class FindAllUseCase {
 
   constructor(
      private readonly findAllTodosRepository: FindAllTodosRepository,
