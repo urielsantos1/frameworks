@@ -9,6 +9,6 @@ export class FindAllTodosRepository {
     constructor(private readonly prisma: PrismaService) {}
 
     async FindMany(){
-        return this.prisma.Todo.findMany();
+        return this.prisma.todo.findMany();
     }
 }
