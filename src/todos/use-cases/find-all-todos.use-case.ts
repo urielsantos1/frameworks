@@ -14,7 +14,7 @@ export class FindAllUseCase {
     try {
       this.logger.log(`Puxando todos`);
 
-         const result = await this.findAllTodosRepository.findMany();
+         const result = await this.findAllTodosRepository.FindMany();
 
       this.logger.log(`Itens encontrados com sucesso`);
       if (!result) {this.logger.error(`nenhum item encontrado`)}
