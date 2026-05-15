@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 
 @Controller('todos')
 export class TodosController {
@@ -11,12 +13,17 @@ export class TodosController {
   create(@Body() createTodoDto: CreateTodoDto) {
     return this.todosService.create(createTodoDto);
   }
-
+  
   @Get()
   findAll() {
     return this.todosService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard)
+  @Get('private')
+  privateRoute(@CurrentUser() user: { id: string; email: string; }) {
+    return { message: `Hello, ${user.email}! This is a private route.` };
+  }
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.todosService.findOne(id);
